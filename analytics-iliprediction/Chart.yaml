@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for a Kubernetes app including a cronjob
+name: analytics-iliprediction
+version: 1.0

@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1 
+kind: CronJob 
+metadata:   
+  name: {{ template "fullname" . }}-cronjob
+  labels:     
+    jobgroup: {{ template "fullname" . }}-jobgroup
+spec:
+  #Run every 1 hour
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:     
+        metadata:       
+          name: {{ template "fullname" . }}-cronjob
+        spec:       
+          containers:       
+          - name: {{ template "fullname" . }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            args: ["/main/main.py"]        
+          restartPolicy: OnFailure
