@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1 
 kind: CronJob 
 metadata:   
-  name: {{ template "fullname" . }}-cronjob
+  name: {{ template "name" . }}-cronjob
   labels:     
-    jobgroup: {{ template "fullname" . }}-jobgroup
+    jobgroup: {{ template "name" . }}-jobgroup
 spec:
   #Run every 1 hour
   schedule: "0 * * * *"
@@ -11,10 +11,10 @@ spec:
     spec:
       template:     
         metadata:       
-          name: {{ template "fullname" . }}-cronjob
+          name: {{ template "name" . }}-cronjob
         spec:       
           containers:       
-          - name: {{ template "fullname" . }}
+          - name: {{ template "name" . }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             args: ["/main/main.py"]        
